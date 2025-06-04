@@ -38,12 +38,17 @@ func _ready():
 	$Atk.text = str(attack)
 	$Hp.text = str(deffense)
 	
-	var styleBoxFlat = $Panel.get_theme_stylebox("theme_override_styles/panel")
+	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
+	print(styleBoxFlat.border_color)
 	if styleBoxFlat is StyleBoxFlat:
 		if color == CardsDatabase.COLORS.get("RED"):
 			styleBoxFlat.border_color = Color(1, 0, 0, 1)  # Rojo
 		if color == CardsDatabase.COLORS.get("BLUE"):
 			styleBoxFlat.border_color = Color(100, 2, 0)  # Rojo
+	print(styleBoxFlat.border_color)
+	
+	$Panel.remove_theme_stylebox_override("panel")
+	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)
 	#$Bars.scale = CardSize / $Border.texture.get_size();
 	#$Bars/NameLabel.text = name;
 	#$Bars/AttackLabel.text = str(attack);

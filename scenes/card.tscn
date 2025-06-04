@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3dkcjwu0p4gn"]
 
 [ext_resource type="Script" uid="uid://gq74fjisuoot" path="res://card.gd" id="1_rjlel"]
-[ext_resource type="Texture2D" uid="uid://bxdb4mmqkexdd" path="res://card_back4.webp" id="3_ktuci"]
+[ext_resource type="Texture2D" uid="uid://dco8gyj2jv1qm" path="res://card_back4.webp" id="3_ktuci"]
 
 [sub_resource type="Theme" id="Theme_ktuci"]
 
