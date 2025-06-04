@@ -1,30 +1,39 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3dkcjwu0p4gn"]
+[gd_scene load_steps=9 format=3 uid="uid://c3dkcjwu0p4gn"]
 
 [ext_resource type="Script" uid="uid://gq74fjisuoot" path="res://card.gd" id="1_rjlel"]
+[ext_resource type="FontFile" uid="uid://dxih6tw0vtiux" path="res://fonts/pixel_digivolve.otf" id="2_ktuci"]
 [ext_resource type="Texture2D" uid="uid://dco8gyj2jv1qm" path="res://card_back4.webp" id="3_ktuci"]
 
 [sub_resource type="Theme" id="Theme_ktuci"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kg30u"]
 bg_color = Color(1, 1, 1, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_left = 12
+border_width_top = 10
+border_width_right = 12
+border_width_bottom = 10
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 25
 corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktuci"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4wf"]
 bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2yge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktuci"]
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 7
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_rjlel")
@@ -35,43 +44,32 @@ offset_bottom = 389.0
 theme = SubResource("Theme_ktuci")
 theme_override_styles/panel = SubResource("StyleBoxFlat_kg30u")
 
-[node name="Hp" type="RichTextLabel" parent="."]
-offset_left = 130.0
-offset_top = 340.0
-offset_right = 170.0
-offset_bottom = 366.0
-scale = Vector2(2, 2)
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "100"
-horizontal_alignment = 1
-
 [node name="Atk" type="RichTextLabel" parent="."]
-offset_left = 34.0
-offset_top = 340.0
-offset_right = 74.0
-offset_bottom = 365.0
-scale = Vector2(2, 2)
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "100"
+offset_left = 15.0
+offset_top = 322.0
+offset_right = 233.0
+offset_bottom = 373.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_ktuci")
+theme_override_font_sizes/normal_font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxFlat_6u4wf")
+text = "100 / 100"
 horizontal_alignment = 1
 
 [node name="CardImage" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_h2yge")
-position = Vector2(125, 186)
-scale = Vector2(0.355469, 0.343115)
+position = Vector2(125, 189)
+scale = Vector2(0.340625, 0.295711)
 texture = ExtResource("3_ktuci")
 
-[node name="LineDivider" type="Panel" parent="."]
-offset_left = 116.0
-offset_top = 339.0
-offset_right = 126.0
-offset_bottom = 389.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ktuci")
-
 [node name="Name" type="RichTextLabel" parent="."]
-offset_right = 249.0
-offset_bottom = 70.0
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 238.0
+offset_bottom = 55.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 28
+theme_override_fonts/normal_font = ExtResource("2_ktuci")
+theme_override_font_sizes/normal_font_size = 34
+theme_override_styles/normal = SubResource("StyleBoxFlat_ktuci")
 text = "NOMBRE"
 horizontal_alignment = 1
