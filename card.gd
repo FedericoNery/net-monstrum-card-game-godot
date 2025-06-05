@@ -71,7 +71,9 @@ func _ready():
 	#$Bars/NameLabel.text = name;
 	#$Bars/AttackLabel.text = str(attack);
 	#$Bars/DeffenseLabel.text = str(deffense);
-
+	
+	#get_parent().connect_card_signals(self)
+	$Area2D.mouse_entered.connect(_on_area_2d_mouse_entered)
 
 func _draw():
 	pass
@@ -81,3 +83,16 @@ func _draw():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_area_2d_mouse_entered() -> void:
+	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
+	
+	if styleBoxFlat.border_color == Color.GOLD:
+		if CardInformation.color == CardsDatabase.COLORS.get("RED"):
+			styleBoxFlat.border_color = Color.RED
+	else:
+		styleBoxFlat.border_color = Color.GOLD
+		
+	$Panel.remove_theme_stylebox_override("panel")
+	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)	

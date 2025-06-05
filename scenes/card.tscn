@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3dkcjwu0p4gn"]
+[gd_scene load_steps=10 format=3 uid="uid://c3dkcjwu0p4gn"]
 
 [ext_resource type="Script" uid="uid://gq74fjisuoot" path="res://card.gd" id="1_rjlel"]
 [ext_resource type="FontFile" uid="uid://dxih6tw0vtiux" path="res://fonts/pixel_digivolve.otf" id="2_ktuci"]
@@ -35,12 +35,16 @@ border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktuci"]
+size = Vector2(248, 388.5)
+
 [node name="Card" type="Node2D"]
 script = ExtResource("1_rjlel")
 
 [node name="Panel" type="Panel" parent="."]
 offset_right = 249.0
 offset_bottom = 389.0
+mouse_filter = 2
 theme = SubResource("Theme_ktuci")
 theme_override_styles/panel = SubResource("StyleBoxFlat_kg30u")
 
@@ -73,3 +77,11 @@ theme_override_font_sizes/normal_font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxFlat_ktuci")
 text = "NOMBRE"
 horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(125, 194.75)
+shape = SubResource("RectangleShape2D_ktuci")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
