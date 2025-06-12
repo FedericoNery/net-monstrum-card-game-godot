@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://c3dkcjwu0p4gn"]
 
 [ext_resource type="Script" uid="uid://gq74fjisuoot" path="res://card.gd" id="1_rjlel"]
-[ext_resource type="FontFile" uid="uid://dxih6tw0vtiux" path="res://fonts/pixel_digivolve.otf" id="2_ktuci"]
-[ext_resource type="Texture2D" uid="uid://dco8gyj2jv1qm" path="res://card_back4.webp" id="3_ktuci"]
+[ext_resource type="FontFile" uid="uid://cmeisn73ayjqi" path="res://fonts/pixel_digivolve.otf" id="2_ktuci"]
+[ext_resource type="Texture2D" uid="uid://bxdb4mmqkexdd" path="res://card_back4.webp" id="3_ktuci"]
 
 [sub_resource type="Theme" id="Theme_ktuci"]
 
@@ -34,6 +34,8 @@ border_width_bottom = 7
 border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ktuci"]
 size = Vector2(248, 388.5)

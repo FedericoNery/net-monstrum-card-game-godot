@@ -4,7 +4,8 @@ extends Node2D
 var Cardname = 'Agumon';
 @onready var CardInformation = CardsDatabase.DATA[Cardname];
 @onready var CardImg = str("res://digimon-images/", CardInformation.name,".jpg")
-
+var isSelected = false
+var isHovered = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print(CardInformation)
@@ -74,6 +75,8 @@ func _ready():
 	
 	#get_parent().connect_card_signals(self)
 	$Area2D.mouse_entered.connect(_on_area_2d_mouse_entered)
+	$Area2D.mouse_exited.connect(_on_area_2d_mouse_exited)
+	$Area2D.input_event.connect(_on_area_2d_input_event)
 
 func _draw():
 	pass
@@ -86,6 +89,20 @@ func _process(delta):
 
 
 func _on_area_2d_mouse_entered() -> void:
+	#alternateColorWhenClick()
+	highlight_card(true)
+	
+func _on_area_2d_mouse_exited() -> void:
+	highlight_card(false)
+	
+func highlight_card(isHovered):
+	if(isHovered):
+		self.scale = Vector2(1.05, 1.05)
+	else:
+		self.scale = Vector2(1, 1)
+		
+
+func alternateColorWhenClick() -> void:
 	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
 	
 	if styleBoxFlat.border_color == Color.GOLD:
@@ -96,3 +113,21 @@ func _on_area_2d_mouse_entered() -> void:
 		
 	$Panel.remove_theme_stylebox_override("panel")
 	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)	
+
+func moveUp():
+	self.position.y = self.position.y - 50
+
+func moveDown():
+	self.position.y = self.position.y + 50
+	
+func _on_area_2d_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed:
+		if !isSelected:
+			alternateColorWhenClick()
+			moveUp()
+			isSelected = true
+		else:
+			alternateColorWhenClick()
+			moveDown()
+			isSelected = false
+			
