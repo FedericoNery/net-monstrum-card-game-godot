@@ -1,16 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmryme26ojevj"]
+[gd_scene load_steps=6 format=3 uid="uid://dmryme26ojevj"]
 
 [ext_resource type="PackedScene" uid="uid://c3dkcjwu0p4gn" path="res://scenes/card.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://nrx122yviu16" path="res://scenes/card_back.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dhcc3wevqyqro" path="res://scenes/player_hand.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://dyocrk5fsr1cj" path="res://scenes/digimon_field.tscn" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://b8b2fvpfwtkpy" path="res://scenes/digimon_field.gd" id="5_7mycd"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Card" parent="." instance=ExtResource("1_ig7tw")]
+visible = false
 
 [node name="CardBack" parent="." instance=ExtResource("2_0xm2m")]
-visible = false
+position = Vector2(0, 1)
 
 [node name="PlayerHand" parent="." instance=ExtResource("3_h2yge")]
 
-[node name="DigimonField" type="Node2D" parent="."]
+[node name="DigimonField" parent="." instance=ExtResource("4_lquwl")]
+script = ExtResource("5_7mycd")
+
+[node name="Node2D" type="Node2D" parent="."]

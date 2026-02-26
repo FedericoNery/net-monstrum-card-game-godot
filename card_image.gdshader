@@ -1,21 +1,33 @@
 shader_type canvas_item;
 
-uniform float radius = 1; // Ajusta el tamaño de las esquinas
+uniform float corner_radius : hint_range(0.0, 0.5) = 0.1;
 
 void fragment() {
-    vec2 size = vec2(1.0, 1.0); // Tamaño normalizado de la imagen
-    vec2 pixel_pos = UV * size; // Posición normalizada
+    vec2 uv = UV;
 
-    if (pixel_pos.x < radius && pixel_pos.y < radius) {
-        if (distance(pixel_pos, vec2(radius, radius)) > radius) discard;
+    vec2 p = uv;
+
+    float alpha = 1.0;
+
+    // Esquinas redondeadas
+    if (p.x < corner_radius && p.y < corner_radius) {
+        float dist = distance(p, vec2(corner_radius, corner_radius));
+        alpha *= smoothstep(corner_radius, corner_radius - 0.01, dist);
     }
-    if (pixel_pos.x > (1.0 - radius) && pixel_pos.y < radius) {
-        if (distance(pixel_pos, vec2(1.0 - radius, radius)) > radius) discard;
+    else if (p.x > 1.0 - corner_radius && p.y < corner_radius) {
+        float dist = distance(p, vec2(1.0 - corner_radius, corner_radius));
+        alpha *= smoothstep(corner_radius, corner_radius - 0.01, dist);
     }
-    if (pixel_pos.x < radius && pixel_pos.y > (1.0 - radius)) {
-       if (distance(pixel_pos, vec2(radius, 1.0 - radius)) > radius) discard;
+    else if (p.x < corner_radius && p.y > 1.0 - corner_radius) {
+        float dist = distance(p, vec2(corner_radius, 1.0 - corner_radius));
+        alpha *= smoothstep(corner_radius, corner_radius - 0.01, dist);
     }
-    if (pixel_pos.x > (1.0 - radius) && pixel_pos.y > (1.0 - radius)) {
-        if (distance(pixel_pos, vec2(1.0 - radius, 1.0 - radius)) > radius) discard;
+    else if (p.x > 1.0 - corner_radius && p.y > 1.0 - corner_radius) {
+        float dist = distance(p, vec2(1.0 - corner_radius, 1.0 - corner_radius));
+        alpha *= smoothstep(corner_radius, corner_radius - 0.01, dist);
     }
+
+    vec4 tex = texture(TEXTURE, uv);
+    tex.a *= alpha;
+    COLOR = tex;
 }

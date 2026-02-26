@@ -1,0 +1,8 @@
+class_name CARD_TYPE
+enum CARD_TYPE {
+	DIGIMON,   
+	EQUIPMENT,
+	ENERGY,     
+	SUMMON_DIGIMON,
+	PROGRAMMING
+}

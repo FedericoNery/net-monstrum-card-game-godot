@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3dkcjwu0p4gn"]
+[gd_scene load_steps=15 format=3 uid="uid://c3dkcjwu0p4gn"]
 
 [ext_resource type="Script" uid="uid://gq74fjisuoot" path="res://card.gd" id="1_rjlel"]
 [ext_resource type="FontFile" uid="uid://cmeisn73ayjqi" path="res://fonts/pixel_digivolve.otf" id="2_ktuci"]
 [ext_resource type="Texture2D" uid="uid://bxdb4mmqkexdd" path="res://card_back4.webp" id="3_ktuci"]
+[ext_resource type="Shader" uid="uid://cq4ms55s2wenh" path="res://card_image.gdshader" id="4_kg30u"]
 
 [sub_resource type="Theme" id="Theme_ktuci"]
 
@@ -40,17 +41,110 @@ corner_radius_bottom_left = 4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ktuci"]
 size = Vector2(248, 388.5)
 
+[sub_resource type="Animation" id="Animation_kg30u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.01, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardBackImage:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.385938, 0.438792)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardBackImage:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+
+[sub_resource type="Animation" id="Animation_ktuci"]
+resource_name = "card_flip"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(0.1, 1), Vector2(0.35, 1), Vector2(0.7, 1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardBackImage:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.385938, 0.438792), Vector2(0.2, 0.439), Vector2(0.1, 0.439), Vector2(1e-05, 0.439)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CardBackImage:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [-1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kg30u"]
+_data = {
+&"RESET": SubResource("Animation_kg30u"),
+&"card_flip": SubResource("Animation_ktuci")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sy11y"]
+shader = ExtResource("4_kg30u")
+shader_parameter/corner_radius = 0.1
+
 [node name="Card" type="Node2D"]
 script = ExtResource("1_rjlel")
 
 [node name="Panel" type="Panel" parent="."]
+z_index = -1
 offset_right = 249.0
 offset_bottom = 389.0
+scale = Vector2(0.01, 1)
+pivot_offset = Vector2(124.5, 194.5)
 mouse_filter = 2
 theme = SubResource("Theme_ktuci")
 theme_override_styles/panel = SubResource("StyleBoxFlat_kg30u")
 
-[node name="Atk" type="RichTextLabel" parent="."]
+[node name="Atk" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 323.0
 offset_right = 233.0
@@ -62,13 +156,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_6u4wf")
 text = "100 / 100"
 horizontal_alignment = 1
 
-[node name="CardImage" type="Sprite2D" parent="."]
+[node name="CardImage" type="Sprite2D" parent="Panel"]
 material = SubResource("ShaderMaterial_h2yge")
 position = Vector2(124.5, 192)
 scale = Vector2(0.335937, 0.293454)
 texture = ExtResource("3_ktuci")
 
-[node name="Name" type="RichTextLabel" parent="."]
+[node name="Name" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 12.0
 offset_right = 238.0
@@ -85,5 +180,17 @@ horizontal_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(125, 194.75)
 shape = SubResource("RectangleShape2D_ktuci")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kg30u")
+}
+
+[node name="CardBackImage" type="Sprite2D" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_sy11y")
+position = Vector2(125.5, 194.615)
+scale = Vector2(0.385938, 0.438792)
+texture = ExtResource("3_ktuci")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]

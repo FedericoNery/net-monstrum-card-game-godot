@@ -12,36 +12,36 @@ func _ready():
 	var CardSize = Vector2(254, 350)
 	
 	#$Border.scale *= CardSize / $Border.texture.get_size();
-	var baseWidth = $CardImage.texture.get_size().x * $CardImage.scale.x
-	var baseHeight = $CardImage.texture.get_size().y * $CardImage.scale.y
+	var baseWidth = $Panel/CardImage.texture.get_size().x * $Panel/CardImage.scale.x
+	var baseHeight = $Panel/CardImage.texture.get_size().y * $Panel/CardImage.scale.y
 	
-	$CardImage.texture = load(CardImg)
-	var imgWidth = $CardImage.texture.get_size().x
-	var imgHeight = $CardImage.texture.get_size().y
+	$Panel/CardImage.texture = load(CardImg)
+	var imgWidth = $Panel/CardImage.texture.get_size().x
+	var imgHeight = $Panel/CardImage.texture.get_size().y
 	
 	var scale_factor_width = baseWidth / imgWidth
 	var scale_factor_height = baseHeight / imgHeight
 	
-	$CardImage.scale = Vector2(scale_factor_width, scale_factor_height)
+	$Panel/CardImage.scale = Vector2(scale_factor_width, scale_factor_height)
 
-	#$CardImage.offset = Vector2(200,200)
+	#$Panel/CardImage.offset = Vector2(200,200)
 	
-	#$CardImage.scale = Vector2(240 / $CardImage.texture.get_size().x, 190 / $CardImage.texture.get_size().y)
-	#$CardImage.scale *= CardSize / $CardImage.texture.get_size();
+	#$Panel/CardImage.scale = Vector2(240 / $Panel/CardImage.texture.get_size().x, 190 / $Panel/CardImage.texture.get_size().y)
+	#$Panel/CardImage.scale *= CardSize / $Panel/CardImage.texture.get_size();
 	var attack = str(CardInformation.attack)
 	var deffense = str(CardInformation.deffense)
 	var color = CardInformation.color
 	var name = CardInformation.name
 	
-	print($CardImage.texture.get_size() * $CardImage.scale)
+	print($Panel/CardImage.texture.get_size() * $Panel/CardImage.scale)
 	
-	$Name.text = str(name)
+	$Panel/Name.text = str(name)
 	var labelAtkHp = "{atk}/{hp}"
-	$Atk.text = labelAtkHp.format({"atk": attack, "hp": deffense})
+	$Panel/Atk.text = labelAtkHp.format({"atk": attack, "hp": deffense})
 	
 	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
-	var styleBoxFlatName: StyleBoxFlat = $Name.get_theme_stylebox("normal").duplicate()
-	var styleBoxFlatAtk: StyleBoxFlat = $Atk.get_theme_stylebox("normal").duplicate()
+	var styleBoxFlatName: StyleBoxFlat = $Panel/Name.get_theme_stylebox("normal").duplicate()
+	var styleBoxFlatAtk: StyleBoxFlat = $Panel/Atk.get_theme_stylebox("normal").duplicate()
 	if styleBoxFlat is StyleBoxFlat:
 		if color == CardsDatabase.COLORS.get("RED"):
 			styleBoxFlat.border_color = Color.RED
@@ -60,11 +60,11 @@ func _ready():
 			styleBoxFlatAtk.bg_color = Color.DARK_RED
 	print(styleBoxFlatAtk.bg_color)
 	
-	$Name.remove_theme_stylebox_override("normal")
-	$Name.add_theme_stylebox_override("normal", styleBoxFlatName)
+	$Panel/Name.remove_theme_stylebox_override("normal")
+	$Panel/Name.add_theme_stylebox_override("normal", styleBoxFlatName)
 	
-	$Atk.remove_theme_stylebox_override("normal")
-	$Atk.add_theme_stylebox_override("normal", styleBoxFlatAtk)
+	$Panel/Atk.remove_theme_stylebox_override("normal")
+	$Panel/Atk.add_theme_stylebox_override("normal", styleBoxFlatAtk)
 	
 	$Panel.remove_theme_stylebox_override("panel")
 	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)
