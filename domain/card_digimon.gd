@@ -1,6 +1,6 @@
 class_name CardDigimon extends Card
 
-var color: COLORS
+var color: COLORS_CARD
 var attackPoints: int
 var healthPoints: int
 var energyCount: int

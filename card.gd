@@ -1,13 +1,17 @@
 extends Node2D
 
-@onready var CardsDatabase = preload("res://cards_database.gd");
-var Cardname = 'Agumon';
-@onready var CardInformation = CardsDatabase.DATA[Cardname];
-@onready var CardImg = str("res://digimon-images/", CardInformation.name,".jpg")
+
+
 var isSelected = false
 var isHovered = false
 # Called when the node enters the scene tree for the first time.
+var Cardname = 'Agumon';
+var CardInformation = CardsDatabase.CARDS_DATA[0];
+var CardImg = str("res://digimon-images/", CardInformation.name,".jpg")
+	
 func _ready():
+
+
 	print(CardInformation)
 	var CardSize = Vector2(254, 350)
 	
@@ -106,7 +110,7 @@ func alternateColorWhenClick() -> void:
 	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
 	
 	if styleBoxFlat.border_color == Color.GOLD:
-		if CardInformation.color == CardsDatabase.COLORS.get("RED"):
+		if CardInformation.color == COLORS_CARD.COLORS_CARD.RED:
 			styleBoxFlat.border_color = Color.RED
 	else:
 		styleBoxFlat.border_color = Color.GOLD

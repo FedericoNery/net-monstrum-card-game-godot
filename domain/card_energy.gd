@@ -1,6 +1,6 @@
 class_name CardEnergy extends Card
 
-var color: COLORS
+var color: COLORS_CARD
 var energyCount: int
 	
 func _init(card_data):

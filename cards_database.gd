@@ -1,3 +1,5 @@
+extends Resource
+class_name DB
 const COLORS_STRING = {
   "RED": 'Red',
   "BLUE": 'Blue',
@@ -50,7 +52,7 @@ enum CARD_TYPE {
 	PROGRAMMING
 }
 
-var cardsData = [
+var CARDS_DATA = [
   CardDigimon.new({
 	"_id": '664e8b7ceb0218b7c40ce0a1',
 	"price": 1,
