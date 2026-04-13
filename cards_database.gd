@@ -1,5 +1,6 @@
 extends Resource
 class_name DB
+
 const COLORS_STRING = {
   "RED": 'Red',
   "BLUE": 'Blue',

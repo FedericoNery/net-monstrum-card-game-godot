@@ -1,13 +1,14 @@
 class_name CardDigimon extends Card
 
-var color: COLORS_CARD
+var color: DB.COLORS_CARD
 var attackPoints: int
 var healthPoints: int
 var energyCount: int
-var evolution: String
+var evolution: Variant
 var level: int
 	
 func _init(card_data):
+	super._init(card_data)
 	color = card_data.color
 	attackPoints = card_data.attackPoints
 	healthPoints = card_data.healthPoints

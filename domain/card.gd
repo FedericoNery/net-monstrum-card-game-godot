@@ -3,7 +3,7 @@ class_name Card
 var id: String
 var price: int
 var name: String
-var type: CARD_TYPE
+var type: DB.CARD_TYPE
 	
 func _init(card_data):
 	id = card_data._id
