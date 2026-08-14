@@ -18,11 +18,16 @@ config/icon="res://icon.svg"
 [autoload]
 
 CardsDatabase="*res://cards_database.gd"
+NetworkManager="*res://scenes/network_manager.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [rendering]
 

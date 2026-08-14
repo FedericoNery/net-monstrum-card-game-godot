@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/tests/test_deck_seed.gd" id="1_script"]
+
+[node name="TestDeckSeed" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Status" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 900.0
+offset_bottom = 300.0
+text = "Generando mazos de ejemplo..."
+autowrap_mode = 2

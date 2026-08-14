@@ -34,6 +34,26 @@ func remove_digimon_from_field(card_node: Node) -> void:
 	digimon_removed.emit(card_node)
 	_check_combos()
 
+# --- Sincronización multiplayer (ver scenes/network_manager.gd) ---
+# El host es la autoridad: cualquier peer puede pedir la acción, pero se
+# ejecuta en todos (incluido quien la pidió) vía call_local para que el
+# estado del campo quede idéntico en ambas instancias.
+
+@rpc("any_peer", "call_local", "reliable")
+func rpc_summon_digimon(card_id: String) -> void:
+	var card_data := DB.get_card_by_id(card_id)
+	if card_data == null or not (card_data is CardDigimon):
+		push_warning("DigimonField.rpc_summon_digimon: id inválido para CardDigimon: %s" % card_id)
+		return
+	summon_digimon_to_field(card_data)
+
+@rpc("any_peer", "call_local", "reliable")
+func rpc_remove_digimon(field_index: int) -> void:
+	if field_index < 0 or field_index >= field_cards.size():
+		push_warning("DigimonField.rpc_remove_digimon: índice fuera de rango: %d" % field_index)
+		return
+	remove_digimon_from_field(field_cards[field_index].node)
+
 func activate_program_card() -> void:
 	pass  # fuera de alcance de este trabajo
 
