@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" uid="uid://dhcc3wevqyqro" path="res://scenes/player_hand.tscn" id="1_hand"]
+
+[node name="TestPlayerHand" type="Node2D"]
+
+[node name="PlayerHand" parent="." instance=ExtResource("1_hand")]
+
+[node name="Info" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 900.0
+offset_bottom = 90.0
+text = "Test aislado de la mano del jugador (6 cartas en abanico, todas Agumon por el mismo bug conocido)."

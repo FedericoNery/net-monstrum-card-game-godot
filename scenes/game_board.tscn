@@ -1,0 +1,142 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scenes/game_board.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://dyocrk5fsr1cj" path="res://scenes/digimon_field.tscn" id="2_field"]
+[ext_resource type="PackedScene" uid="uid://dhcc3wevqyqro" path="res://scenes/player_hand.tscn" id="3_hand"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resource_counter.tscn" id="4_counter"]
+[ext_resource type="PackedScene" path="res://scenes/ui/phase_banner.tscn" id="5_banner"]
+[ext_resource type="PackedScene" path="res://scenes/ui/action_menu.tscn" id="6_menu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/card_tooltip.tscn" id="7_tooltip"]
+[ext_resource type="PackedScene" path="res://scenes/ui/card_grid_popup.tscn" id="8_popup"]
+
+[node name="GameBoard" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Player2Field" parent="." instance=ExtResource("2_field")]
+position = Vector2(500, 320)
+
+[node name="Player1Field" parent="." instance=ExtResource("2_field")]
+position = Vector2(500, 680)
+
+[node name="Player2HandRow" type="Node2D" parent="."]
+position = Vector2(700, 160)
+
+[node name="Player1Hand" parent="." instance=ExtResource("3_hand")]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="HBoxContainer" parent="UILayer"]
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 900.0
+offset_bottom = 45.0
+
+[node name="Energy0" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+swatch_color = Color(1, 1, 1, 1)
+
+[node name="Energy1" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.2, 0.4, 1, 1)
+
+[node name="Energy2" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.2, 0.8, 0.2, 1)
+
+[node name="Energy3" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.9, 0.1, 0.1, 1)
+
+[node name="Energy4" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.15, 0.15, 0.15, 1)
+
+[node name="Energy5" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.55, 0.27, 0.07, 1)
+
+[node name="Deck" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+title_text = "Mazo"
+
+[node name="Hand" parent="UILayer/TopBar" instance=ExtResource("4_counter")]
+title_text = "Mano"
+
+[node name="TopStatsPreview" type="HBoxContainer" parent="UILayer"]
+offset_left = 20.0
+offset_top = 55.0
+offset_right = 300.0
+offset_bottom = 90.0
+
+[node name="AP" parent="UILayer/TopStatsPreview" instance=ExtResource("4_counter")]
+title_text = "AP"
+
+[node name="HP" parent="UILayer/TopStatsPreview" instance=ExtResource("4_counter")]
+title_text = "HP"
+
+[node name="BottomStatsPreview" type="HBoxContainer" parent="UILayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -95.0
+offset_right = 300.0
+offset_bottom = -60.0
+
+[node name="AP" parent="UILayer/BottomStatsPreview" instance=ExtResource("4_counter")]
+title_text = "AP"
+
+[node name="HP" parent="UILayer/BottomStatsPreview" instance=ExtResource("4_counter")]
+title_text = "HP"
+
+[node name="BottomBar" type="HBoxContainer" parent="UILayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -50.0
+offset_right = 900.0
+offset_bottom = -15.0
+
+[node name="Energy0" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+swatch_color = Color(1, 1, 1, 1)
+
+[node name="Energy1" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.2, 0.4, 1, 1)
+
+[node name="Energy2" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.2, 0.8, 0.2, 1)
+
+[node name="Energy3" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.9, 0.1, 0.1, 1)
+
+[node name="Energy4" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.15, 0.15, 0.15, 1)
+
+[node name="Energy5" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+swatch_color = Color(0.55, 0.27, 0.07, 1)
+
+[node name="Deck" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+title_text = "Mazo"
+
+[node name="Hand" parent="UILayer/BottomBar" instance=ExtResource("4_counter")]
+title_text = "Mano"
+
+[node name="TrashP2" parent="UILayer" instance=ExtResource("4_counter")]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 100.0
+offset_right = -20.0
+offset_bottom = 130.0
+title_text = "Basura"
+
+[node name="TrashP1" parent="UILayer" instance=ExtResource("4_counter")]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -130.0
+offset_right = -20.0
+offset_bottom = -100.0
+title_text = "Basura"
+
+[node name="PhaseBanner" parent="UILayer" instance=ExtResource("5_banner")]
+
+[node name="ActionMenu" parent="UILayer" instance=ExtResource("6_menu")]
+
+[node name="CardTooltip" parent="UILayer" instance=ExtResource("7_tooltip")]
+
+[node name="CardGridPopup" parent="UILayer" instance=ExtResource("8_popup")]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/card_tooltip.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://cmeisn73ayjqi" path="res://fonts/pixel_digivolve.otf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tooltip"]
+bg_color = Color(0.043137, 0.058824, 0.203922, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.694118, 0.968627, 1)
+
+[node name="CardTooltip" type="Control"]
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Frame" type="Panel" parent="."]
+custom_minimum_size = Vector2(320, 140)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tooltip")
+
+[node name="VBox" type="VBoxContainer" parent="Frame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+
+[node name="DescriptionLabel" type="Label" parent="Frame/VBox"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+autowrap_mode = 3
+size_flags_vertical = 3
+text = "Descripción"
+
+[node name="NameLabel" type="Label" parent="Frame/VBox"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+horizontal_alignment = 2
+text = "Nombre"

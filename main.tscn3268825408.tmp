@@ -9,9 +9,9 @@
 [node name="Main" type="Node2D"]
 
 [node name="Card" parent="." instance=ExtResource("1_ig7tw")]
+visible = false
 
 [node name="CardBack" parent="." instance=ExtResource("2_0xm2m")]
-visible = false
 position = Vector2(0, 1)
 
 [node name="PlayerHand" parent="." instance=ExtResource("3_h2yge")]
@@ -20,4 +20,3 @@ position = Vector2(0, 1)
 script = ExtResource("5_7mycd")
 
 [node name="Node2D" type="Node2D" parent="."]
-visible = false

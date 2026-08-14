@@ -2040,79 +2040,100 @@ var CARDS_DATA = [
 
 var isSelected = false
 var isHovered = false
+var interactive: bool = true
 # Called when the node enters the scene tree for the first time.
-var Cardname = 'Agumon';
-var CardInformation: CardDigimon = CARDS_DATA[0];
-var CardImg = str("res://digimon-images/", CardInformation.name,".jpg")
-	
+var CardInformation: CardDigimon = CARDS_DATA[0];  # fallback por compatibilidad; usar set_card_data() para mostrar otra carta
+
+signal flip_animation_finished
+signal card_selected(card_data: Card, is_selected: bool)
+signal card_hovered(card_data: Card)
+signal card_unhovered
+
+func set_card_data(card_data: CardDigimon) -> void:
+	CardInformation = card_data
+
+func set_interactive(value: bool) -> void:
+	interactive = value
+
 func _ready():
-	print(CardInformation.name)
-	#var CardSize = Vector2(254, 350)
-	
-	#$Border.scale *= CardSize / $Border.texture.get_size();
+	var is_digimon_card = CardInformation is CardDigimon
+	var nameCard = CardInformation.name
+
 	var baseWidth = $Panel/CardImage.texture.get_size().x * $Panel/CardImage.scale.x
 	var baseHeight = $Panel/CardImage.texture.get_size().y * $Panel/CardImage.scale.y
-	
-	$Panel/CardImage.texture = load(CardImg)
+
+	if is_digimon_card:
+		var CardImg = str("res://digimon-images/", CardInformation.name, ".jpg")
+		$Panel/CardImage.texture = load(CardImg)
+	else:
+		# Cartas de Programación/Equipment/Energy/SummonDigimon no tienen arte propio: ícono genérico placeholder
+		$Panel/CardImage.texture = load("res://card_back4.webp")
+
 	var imgWidth = $Panel/CardImage.texture.get_size().x
 	var imgHeight = $Panel/CardImage.texture.get_size().y
-	
+
 	var scale_factor_width = baseWidth / imgWidth
 	var scale_factor_height = baseHeight / imgHeight
-	
+
 	$Panel/CardImage.scale = Vector2(scale_factor_width, scale_factor_height)
 
-	#$Panel/CardImage.offset = Vector2(200,200)
-	
-	#$Panel/CardImage.scale = Vector2(240 / $Panel/CardImage.texture.get_size().x, 190 / $Panel/CardImage.texture.get_size().y)
-	#$Panel/CardImage.scale *= CardSize / $Panel/CardImage.texture.get_size();
-	var attack = str(CardInformation.attackPoints)
-	var deffense = str(CardInformation.healthPoints)
-	var color = CardInformation.color
-	var nameCard = CardInformation.name
-	
-	print($Panel/CardImage.texture.get_size() * $Panel/CardImage.scale)
-	
 	$Panel/Name.text = str(nameCard)
-	var labelAtkHp = "{atk}/{hp}"
-	$Panel/Atk.text = labelAtkHp.format({"atk": attack, "hp": deffense})
-	
+
+	if is_digimon_card:
+		var attack = str(CardInformation.attackPoints)
+		var deffense = str(CardInformation.healthPoints)
+		var labelAtkHp = "{atk}/{hp}"
+		$Panel/Atk.text = labelAtkHp.format({"atk": attack, "hp": deffense})
+		$Panel/Atk.visible = true
+	else:
+		$Panel/Atk.text = ""
+		$Panel/Atk.visible = false
+
+	var color = null
+	if CardInformation is CardDigimon: # || CardInformation is CardEnergy:
+		color = CardInformation.color
+
 	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
 	var styleBoxFlatName: StyleBoxFlat = $Panel/Name.get_theme_stylebox("normal").duplicate()
 	var styleBoxFlatAtk: StyleBoxFlat = $Panel/Atk.get_theme_stylebox("normal").duplicate()
-	if styleBoxFlat is StyleBoxFlat:
+	if styleBoxFlat is StyleBoxFlat and color != null:
 		if color == DB.COLORS_CARD.get("RED"):
 			styleBoxFlat.border_color = Color.RED
 		if color == DB.COLORS_CARD.get("BLUE"):
 			styleBoxFlat.border_color = Color(100, 2, 0)  # Rojo
 
-	if styleBoxFlatName is StyleBoxFlat:
+	if styleBoxFlatName is StyleBoxFlat and color != null:
 		if color == DB.COLORS_CARD.get("RED"):
 			styleBoxFlatName.border_color = Color.RED
 		if color == DB.COLORS_CARD.get("BLUE"):
 			styleBoxFlatName.border_color = Color(100, 2, 0)  # Rojo
-				
-	print(styleBoxFlatAtk.bg_color)
-	if styleBoxFlatAtk is StyleBoxFlat:
+
+	if styleBoxFlatAtk is StyleBoxFlat and color != null:
 		if color == DB.COLORS_CARD.get("RED"):
 			styleBoxFlatAtk.bg_color = Color.DARK_RED
-	print(styleBoxFlatAtk.bg_color)
-	
+
 	$Panel/Name.add_theme_stylebox_override("normal", styleBoxFlatName)
-	
+
 	$Panel/Atk.add_theme_stylebox_override("normal", styleBoxFlatAtk)
-	
+
 	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)
-	#$Bars.scale = CardSize / $Border.texture.get_size();
-	#$Bars/NameLabel.text = name;
-	#$Bars/AttackLabel.text = str(attack);
-	#$Bars/DeffenseLabel.text = str(deffense);
-	
-	#get_parent().connect_card_signals(self)
+
 	$Area2D.mouse_entered.connect(_on_area_2d_mouse_entered)
 	$Area2D.mouse_exited.connect(_on_area_2d_mouse_exited)
 	$Area2D.input_event.connect(_on_area_2d_input_event)
+	$AnimationPlayer.animation_finished.connect(_on_animation_finished)
 	$AnimationPlayer.play("card_flip")
+
+func update_stats_display(new_ap: int, new_hp: int) -> void:
+	if CardInformation is CardDigimon:
+		CardInformation.attackPoints = new_ap
+		CardInformation.healthPoints = new_hp
+	var labelAtkHp = "{atk}/{hp}"
+	$Panel/Atk.text = labelAtkHp.format({"atk": str(new_ap), "hp": str(new_hp)})
+
+func _on_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "card_flip":
+		flip_animation_finished.emit()
 
 func _draw():
 	pass
@@ -2125,37 +2146,44 @@ func _process(delta):
 
 
 func _on_area_2d_mouse_entered() -> void:
-	#alternateColorWhenClick()
+	if not interactive:
+		return
 	highlight_card(true)
-	
+	card_hovered.emit(CardInformation)
+
 func _on_area_2d_mouse_exited() -> void:
+	if not interactive:
+		return
 	highlight_card(false)
-	
+	card_unhovered.emit()
+
 func highlight_card(_isHovered):
 	if(_isHovered):
 		self.scale = Vector2(1.05, 1.05)
 	else:
 		self.scale = Vector2(1, 1)
-		
+
 
 func alternateColorWhenClick() -> void:
 	var styleBoxFlat: StyleBoxFlat = $Panel.get_theme_stylebox("panel").duplicate()
 
 	if styleBoxFlat.border_color == Color.GOLD:
-		if CardInformation.color == DB.COLORS_CARD.RED:
+		if CardInformation is CardDigimon and CardInformation.color == DB.COLORS_CARD.RED:
 			styleBoxFlat.border_color = Color.RED
 	else:
 		styleBoxFlat.border_color = Color.GOLD
 
-	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)	
+	$Panel.add_theme_stylebox_override("panel", styleBoxFlat)
 
 func moveUp():
 	self.position.y = self.position.y - 50
 
 func moveDown():
 	self.position.y = self.position.y + 50
-	
+
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
+	if not interactive:
+		return
 	if event is InputEventMouseButton and event.pressed:
 		if !isSelected:
 			alternateColorWhenClick()
@@ -2165,4 +2193,5 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 			alternateColorWhenClick()
 			moveDown()
 			isSelected = false
+		card_selected.emit(CardInformation, isSelected)
 			

@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/action_menu.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://cmeisn73ayjqi" path="res://fonts/pixel_digivolve.otf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frame"]
+bg_color = Color(0.043137, 0.058824, 0.203922, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.694118, 0.968627, 1)
+
+[node name="ActionMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Frame" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -220.0
+offset_right = 350.0
+offset_bottom = -60.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_frame")
+
+[node name="VBox" type="VBoxContainer" parent="Frame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+
+[node name="PromptLabel" type="Label" parent="Frame/VBox"]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+horizontal_alignment = 1
+text = "¿Qué querés hacer?"
+
+[node name="Options" type="HBoxContainer" parent="Frame/VBox"]
+alignment = 1

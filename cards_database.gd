@@ -53,7 +53,7 @@ enum CARD_TYPE {
 	PROGRAMMING
 }
 
-var CARDS_DATA = [
+static var CARDS_DATA = [
   CardDigimon.new({
 	"_id": '664e8b7ceb0218b7c40ce0a1',
 	"price": 1,
@@ -2091,9 +2091,16 @@ var CARDS_DATA = [
 ];
 
 const MAZO1 = {
-	
+
 }
 
 const MAZO2 = {
-	
+
 }
+
+static func get_card_by_id(card_id: String) -> Card:
+	for card in CARDS_DATA:
+		if card.id == card_id:
+			return card
+	push_warning("DB.get_card_by_id: no se encontró carta con id " + card_id)
+	return null

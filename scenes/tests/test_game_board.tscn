@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/tests/test_game_board.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/game_board.tscn" id="2_board"]
+
+[node name="TestGameBoard" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="GameBoard" parent="." instance=ExtResource("2_board")]
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="VBox" type="VBoxContainer" parent="DebugUI"]
+offset_left = 1550.0
+offset_top = 140.0
+offset_right = 1900.0
+offset_bottom = 700.0
+
+[node name="PhaseStart" type="Button" parent="DebugUI/VBox"]
+text = "Fase: Start"
+
+[node name="PhaseDraw" type="Button" parent="DebugUI/VBox"]
+text = "Fase: Draw"
+
+[node name="PhaseLoad" type="Button" parent="DebugUI/VBox"]
+text = "Fase: Load"
+
+[node name="PhaseSummon" type="Button" parent="DebugUI/VBox"]
+text = "Fase: Summon"
+
+[node name="PhaseCompile" type="Button" parent="DebugUI/VBox"]
+text = "Fase: Compile"
+
+[node name="PhaseBattle" type="Button" parent="DebugUI/VBox"]
+text = "Fase: Battle"
+
+[node name="EnergyPlus" type="Button" parent="DebugUI/VBox"]
+text = "+1 Energía Roja P1"
+
+[node name="ViewHand" type="Button" parent="DebugUI/VBox"]
+text = "Ver mi mano"
+
+[node name="SearchDeck" type="Button" parent="DebugUI/VBox"]
+text = "Buscar en mazo (mock)"
+
+[node name="AddCombo" type="Button" parent="DebugUI/VBox"]
+text = "Agregar 3 Agumon a campo P1 (combo)"
+
+[node name="OpponentHandPlus" type="Button" parent="DebugUI/VBox"]
+text = "+1 mano del rival"
+
+[node name="OpponentHandMinus" type="Button" parent="DebugUI/VBox"]
+text = "-1 mano del rival"
+
+[node name="SummonMenu" type="Button" parent="DebugUI/VBox"]
+text = "Simular menú Summon Phase"
+
+[connection signal="pressed" from="DebugUI/VBox/PhaseStart" to="." method="_on_phase_start_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/PhaseDraw" to="." method="_on_phase_draw_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/PhaseLoad" to="." method="_on_phase_load_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/PhaseSummon" to="." method="_on_phase_summon_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/PhaseCompile" to="." method="_on_phase_compile_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/PhaseBattle" to="." method="_on_phase_battle_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/EnergyPlus" to="." method="_on_energy_plus_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/ViewHand" to="." method="_on_view_hand_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/SearchDeck" to="." method="_on_search_deck_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/AddCombo" to="." method="_on_add_combo_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/OpponentHandPlus" to="." method="_on_opponent_hand_plus_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/OpponentHandMinus" to="." method="_on_opponent_hand_minus_pressed"]
+[connection signal="pressed" from="DebugUI/VBox/SummonMenu" to="." method="_on_summon_menu_pressed"]

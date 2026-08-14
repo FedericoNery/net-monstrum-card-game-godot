@@ -1,3 +1,27 @@
-[gd_scene format=3 uid="uid://dyocrk5fsr1cj"]
+[gd_scene load_steps=2 format=3 uid="uid://dyocrk5fsr1cj"]
+
+[ext_resource type="Script" uid="uid://b8b2fvpfwtkpy" path="res://scenes/digimon_field.gd" id="1_script"]
 
 [node name="DigimonField" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Slots" type="Node2D" parent="."]
+
+[node name="Slot0" type="Marker2D" parent="Slots"]
+position = Vector2(0, 0)
+
+[node name="Slot1" type="Marker2D" parent="Slots"]
+position = Vector2(220, 0)
+
+[node name="Slot2" type="Marker2D" parent="Slots"]
+position = Vector2(440, 0)
+
+[node name="Slot3" type="Marker2D" parent="Slots"]
+position = Vector2(660, 0)
+
+[node name="Slot4" type="Marker2D" parent="Slots"]
+position = Vector2(880, 0)
+
+[node name="CardsContainer" type="Node2D" parent="."]
+
+[node name="ComboOverlays" type="Node2D" parent="."]

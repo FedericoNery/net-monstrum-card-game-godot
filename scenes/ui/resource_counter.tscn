@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/resource_counter.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://cmeisn73ayjqi" path="res://fonts/pixel_digivolve.otf" id="2_font"]
+
+[node name="ResourceCounter" type="HBoxContainer"]
+script = ExtResource("1_script")
+
+[node name="Swatch" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+color = Color(1, 1, 1, 1)
+
+[node name="TitleLabel" type="Label" parent="."]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "Title"
+
+[node name="CountLabel" type="Label" parent="."]
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+text = "0"

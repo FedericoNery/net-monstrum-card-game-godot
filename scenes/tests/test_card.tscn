@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://c3dkcjwu0p4gn" path="res://scenes/card.tscn" id="1_card"]
+[ext_resource type="Script" path="res://scenes/tests/test_card.gd" id="2_script"]
+
+[node name="TestCard" type="Node2D"]
+script = ExtResource("2_script")
+
+[node name="Card" parent="." instance=ExtResource("1_card")]
+position = Vector2(860, 345)
+
+[node name="Info" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 1200.0
+offset_bottom = 90.0
+text = "Test aislado de cartas: Agumon (fallback), Greymon y una carta de Equipment (ícono genérico), pasadas con set_card_data()."

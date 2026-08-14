@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/tests/test_card_grid_popup.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/ui/card_grid_popup.tscn" id="2_popup"]
+
+[node name="TestCardGridPopup" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Info" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 900.0
+offset_bottom = 90.0
+text = "Test aislado de CardGridPopup: ver mano (mock) o buscar en mazo (mock, seleccionable)."
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CardGridPopup" parent="UI" instance=ExtResource("2_popup")]
+
+[node name="ViewHandButton" type="Button" parent="UI"]
+offset_left = 40.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 140.0
+text = "Ver Mano (mock)"
+
+[node name="SearchDeckButton" type="Button" parent="UI"]
+offset_left = 40.0
+offset_top = 150.0
+offset_right = 340.0
+offset_bottom = 190.0
+text = "Buscar en Mazo (mock)"
+
+[node name="StatusLabel" type="Label" parent="UI"]
+offset_left = 40.0
+offset_top = 200.0
+offset_right = 700.0
+offset_bottom = 240.0
+text = "Carta elegida: (ninguna)"
+
+[connection signal="pressed" from="UI/ViewHandButton" to="." method="_on_view_hand_pressed"]
+[connection signal="pressed" from="UI/SearchDeckButton" to="." method="_on_search_deck_pressed"]
